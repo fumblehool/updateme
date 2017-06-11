@@ -10,28 +10,15 @@
         <div class="jumbotron" style="width: 50%">
             <h1>UpdateMe App</h1>
             <p class="lead"></p>
-            <p><a class="btn btn-lg btn-success" href="/app/register" role="button">Get Started!</a>
+            {% if user.is_authenticated %}
+            <p><a class="btn btn-lg btn-success" href="/app/feed/india/" role="button">Read Feed</a>
             </p>
+            {% else %}
+            <p><a class="btn btn-lg btn-success" href="/app/register/" role="button">Get Started!</a>
+            </p>
+            {% endif %}
         </div>
         </center>
 
-        <!--<div class="row marketing">
-            <div class="col-lg-6">
-                <h4></h4>
-                <p></p>
-                <h4></h4>
-                <p></p>
-                <h4></h4>
-                <p></p>
-            </div>
-            <div class="col-lg-6">
-                <h4></h4>
-                <p></p>
-                <h4></h4>
-                <p></p>
-                <h4></h4>
-                <p></p>
-            </div>
-        </div> -->
     </div>
 {% endblock %}

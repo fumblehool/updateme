@@ -3,21 +3,42 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<div>
+<div class="contact-form" style="margin-right: 40%; margin-left: 40%;">
 <h2>Sign up</h2>
-  <form method="post">
+  <form method="post" class="form-horizontal col-md-8" role="form">
     {% csrf_token %}
     {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
+    <div class="form-group">
+      <label for="name">
+        {{ field.label_tag }}</label>
+        <div class="col-md-10">
         {{ field }}
-        
+        </div>
         {% for error in field.errors %}
           <p style="color: red">{{ error| striptags }}</p>
         {% endfor %}
       </p>
+    </div>
     {% endfor %}
-    <button type="submit">Sign up</button>
+    <div class="col-md-10">
+     <select multiple size="3" style="-webkit-appearance: none;">
+  <option value="sports">Sports</option>
+  <option value="travel">Travel</option>
+  <option value="movies">Movies</option>
+  <option value="tech">Tech</option>
+  <option value="environment">Environment</option>
+</select>
+</div>
+<div class="col-md-12 text-right">
+
+                
+    <button type="submit">Sign up</button></div> 
   </form>
 </div>
 {% endblock %}
+{% block footer %}
+{% endblock %}
+
+
+              
+      

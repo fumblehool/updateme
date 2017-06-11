@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
+from django.http import HttpResponseRedirect
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^app/', include('app.urls')),
-    url(r'^/app/login/$', auth_views.login, name='login'),
+    url(r'^', include('app.urls', namespace='some_app')),
 ]

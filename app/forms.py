@@ -3,15 +3,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    email = forms.EmailField(max_length=254,)
     OPTIONS = (
                 ("Sp", "Sports"),
                 ("Mo", "Movies"),
                 ("Tr", "Travels"),
-                ("Po", "Politics"),
                 )
-    choices = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
-                                             choices=OPTIONS)
+    # choices = forms.MultipleChoiceField(widget=forms.MultiValueField,)
     class Meta:
         model = User
-        fields = ('email', 'choices', 'password1', 'password2', )
+        fields = ('username', 'email', 'password1', 'password2', )
