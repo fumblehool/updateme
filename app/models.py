@@ -18,4 +18,3 @@ class Category(models.Model):
 class Mapper(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     c_id = models.IntegerField()
-

@@ -1,78 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>  
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A Bootstrap Blog Template">
-    <meta name="author" content="Vijaya Anand">
+{% extends "app/base.html" %}
 
-    <title>
+{% block title %}
     News Feed
-    </title>
+{% endblock %}
 
-    <!-- Bootstrap CSS file -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-{% load static %}
-<style>
-    
-body {
-    margin-top: 75px;
-}
-
-a.none{
-    text-decoration: none;
-}
-
-
-footer {
-    margin: 10px 0;
-}
-
-#comments, #comments li {
-    margin: 0;
-    padding: 0;
-}
-
-#comments li {
-    list-style: none;
-}
-        
-.photo {
-    margin-bottom: 10px;
-}
-
-.social-buttons button {
-    margin-top: 5px;
-}
-
-    </style>
-
-</head>
-
-<body>
-
-    <!-- Header -->
-    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">           
-        <div class="container">
-            <div class="navbar-header">
-                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="/app/feed/india/" class="navbar-brand">UpdateMe</a>
-            </div>
-            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-                <ul class="nav navbar-nav">
-                    <li class="active" ><a href="/app/logout">Logout</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
+{% block content %}
     <!-- Body -->
     <div class="container">
         <div class="row">
@@ -97,7 +29,6 @@ footer {
                       <center>
                       <img src="{{i.img}}" style="height: 50%; width: 70%;">
                       </center>
-                      {{i.description}}
                         
                       <br />
 
@@ -128,7 +59,7 @@ footer {
                     <button class="btn btn-primary btn-lg">Subscribe to my feed</button>
                 </div>
 
-<!-- Categories -->
+                <!-- Categories -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4>Categories</h4>
@@ -195,29 +126,4 @@ footer {
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <hr />
-            <p class="text-center">Copyright &copy; Astrospace 2014. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Jquery and Bootstrap Script files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
-    
-    
-</body>
-</html>
-
-
-{% if user.is_authenticated %}
-        <a href="/app/logout">Logout</a>
-{% endif %}
-
-
-</body>
-</html>
+{% endblock %}
