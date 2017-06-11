@@ -15,6 +15,40 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
 {% load static %}
+<style>
+    
+body {
+    margin-top: 75px;
+}
+
+a.none{
+    text-decoration: none;
+}
+
+
+footer {
+    margin: 10px 0;
+}
+
+#comments, #comments li {
+    margin: 0;
+    padding: 0;
+}
+
+#comments li {
+    list-style: none;
+}
+        
+.photo {
+    margin-bottom: 10px;
+}
+
+.social-buttons button {
+    margin-top: 5px;
+}
+
+    </style>
+
 </head>
 
 <body>
@@ -29,19 +63,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="index.html" class="navbar-brand">Astrospace</a>
+                <a href="/app/feed/0/" class="navbar-brand">UpdateMe</a>
             </div>
             <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-                <form class="navbar-form navbar-right" role="search">
-                  <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                  </div>
-                  <button type="submit" class="btn btn-default">Submit</button>
-                </form>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li class="active" ><a href="/app/logout">Logout</a></li>
                 </ul>
             </nav>
         </div>
@@ -51,36 +77,30 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-
-                <h1>Latest Posts</h1>
-                {% for i in data.item%}
+                {% block base %}
+                <center> <h1>{{title}}</h1></center>
+                {% for i in data.channel.item%}
                 <article>
-                
-    <p> {{i}}</p>
-    <img src="{{i.image}}"/>
-
-
-
-                    <h2><a href="singlepost.html">Aries Sun Sign March 21 - April 19</a></h2>
+                  <h2><a style="text-decoration: none;"href="{{i.link}}">{{i.title}}</a></h2>
 
                     <div class="row">
                         <div class="col-sm-6 col-md-6">
-                            <span class="glyphicon glyphicon-folder-open"></span> &nbsp;<a href="#">Signs</a>
-                            &nbsp;&nbsp;<span class="glyphicon glyphicon-bookmark"></span> <a href="#">Aries</a>, <a href="#">Fire</a>, <a href="#">Mars</a>
+                             &nbsp;<span class="glyphicon glyphicon-bookmark"></span> <a class="none" href="#">Bookmark</a>
                         </div>
                         <div class="col-sm-6 col-md-6">
-                            <span class="glyphicon glyphicon-pencil"></span> <a href="singlepost.html#comments">20 Comments</a>                         
-                            &nbsp;&nbsp;<span class="glyphicon glyphicon-time"></span> August 24, 2013 9:00 PM                          
+                            <span class="glyphicon glyphicon-pencil"></span> <a class="none" href="#"> Comments</a>                         
+                            &nbsp;&nbsp;<span class="glyphicon glyphicon-time"></span> {{i.pubDate}}                          
                         </div>
                       </div>
 
                       <hr>
-
-                      <img src="http://placehold.it/900x300" class="img-responsive">
-
+                      <center>
+                      <img src="{{i.img}}" style="height: 50%; width: 70%;">
+                      </center>
+                        
                       <br />
 
-                      <p class="lead"></p>
+                      <p class="lead">{{i.description | striptags}}</p>
 
                       <p class="text-right">
                           <a href="{{i.link}}">
@@ -91,7 +111,7 @@
                       <hr>
                 </article>
                 {% endfor %}
-
+                {% endblock %}
                 <ul class="pager">
                     <li class="previous"><a href="#">&larr; Previous</a></li>
                     <li class="next"><a href="#">Next &rarr;</a></li>
@@ -107,33 +127,35 @@
                     <button class="btn btn-primary btn-lg">Subscribe to my feed</button>
                 </div>
 
+<!-- Categories -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>Categories</h4>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><a class="none" href="/app/feed/sports">Sports</a></li>
+                        <li class="list-group-item"><a class="none" href="/app/feed/india">India News</a></li>
+                        <li class="list-group-item"><a class="none" href="/app/feed/science">science</a></li>
+                        <li class="list-group-item"><a class="none" href="/app/feed/environment">Environment</a></li>
+                        <li class="list-group-item"><a class="none" href="/app/feed/tech">tech</a></li>
+                        <li class="list-group-item"><a class="none" href="/app/feed/entertainment">Entertainment</a></li>
+
+                    </ul>
+                </div>
+
                 <!-- Latest Posts -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4>Latest Posts</h4>
                     </div>
                     <ul class="list-group">
-                        <li class="list-group-item"><a href="singlepost.html">1. Aries Sun Sign March 21 - April 19</a></li>
-                        <li class="list-group-item"><a href="singlepost.html">2. Taurus Sun Sign April 20 - May 20</a></li>
-                        <li class="list-group-item"><a href="singlepost.html">3. Gemini Sun Sign May 21 - June 21</a></li>
-                        <li class="list-group-item"><a href="singlepost.html">4. Cancer Sun Sign June 22 - July 22</a></li>
-                        <li class="list-group-item"><a href="singlepost.html">5. Leo Sun Sign July 23 - August 22 </a></li>
+                    {% for i in data.channel.item%}
+                        <li class="list-group-item"><a class="none" href="{{i.link}}">{{i.title}}</a></li>
+                    {% endfor %}
                     </ul>
                 </div>
 
-                <!-- Categories -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4>Categories</h4>
-                    </div>
-                    <ul class="list-group">
-                        <li class="list-group-item"><a href="#">Signs</a></li>
-                        <li class="list-group-item"><a href="#">Elements</a></li>
-                        <li class="list-group-item"><a href="#">Planets</a></li>
-                        <li class="list-group-item"><a href="#">Cusps</a></li>
-                        <li class="list-group-item"><a href="#">Compatibility</a></li>
-                    </ul>
-                </div>
+                
 
                 <!-- Tags -->
                 <div class="panel panel-default">
@@ -142,16 +164,16 @@
                     </div>
                     <div class="panel-body">
                         <ul class="list-inline">
-                            <li><a href="#">Aries</a></li>
-                            <li><a href="#">Fire</a></li>
-                            <li><a href="#">Mars</a></li>
-                            <li><a href="#">Taurus</a></li>
-                            <li><a href="#">Earth</a></li>
-                            <li><a href="#">Moon</a></li>
-                            <li><a href="#">Gemini</a></li>
-                            <li><a href="#">Air</a></li>
-                            <li><a href="#">Mercury</a></li>
-                            <li><a href="#">Cancer</a></li>
+                            <li><a class="none" href="#">Sports</a></li>
+                            <li><a class="none" href="#">Politics</a></li>
+                            <li><a class="none" href="#">Music</a></li>
+                            <li><a class="none" href="#">Travel</a></li>
+                            <li><a class="none" href="#">Movies</a></li>
+                            <li><a class="none" href="#">Matrimonial</a></li>
+                            <li><a class="none" href="#">Classifieds</a></li>
+                            <li><a class="none" href="#">Games</a></li>
+                            <li><a class="none" href="#">Messages</a></li>
+                            <li><a class="none" href="#">Astrology</a></li>
                         </ul>
                     </div>
                 </div>
@@ -162,10 +184,10 @@
                         <h4>Recent Comments</h4>
                     </div>
                     <ul class="list-group">
-                        <li class="list-group-item"><a href="#">I don't believe in astrology but still your writing style is really great! - <em>john</em></a></li>
-                        <li class="list-group-item"><a href="#">Wow.. what you said is really true! I'm an aries though - <em>Anto</em></a></li>
-                        <li class="list-group-item"><a href="#">Does capricorn and aries is compatibile? - <em>Sarah</em></a></li>
-                        <li class="list-group-item"><a href="#">I'm a cancer woman been in love with Leo. Will this work? - <em>Mary</em></a></li>
+                        <li class="list-group-item"><a class="none" href="#">Some Placeholder comment. -<em>john</em></a></li>
+                        <li class="list-group-item"><a class="none" href="#">This is a sample comment. - <em>Anto</em></a></li>
+                        <li class="list-group-item"><a class="none" href="#">Hello world!!! - <em>Sarah</em></a></li>
+                        <li class="list-group-item"><a class="none" href="#">I'm feeling hungry - <em>Mary</em></a></li>
                     </ul>
                 </div>
 
@@ -184,6 +206,9 @@
     <!-- Jquery and Bootstrap Script files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+    
+    
 </body>
 </html>
 

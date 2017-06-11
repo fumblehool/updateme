@@ -30,10 +30,39 @@ def register(request):
 
 
 def feed(request, page_number):
-    url = "https://newsapi.org/v1/articles?source=techcrunch&apiKey="
-    apiKey = "4a77eea012f040af80f1afdd10d7be55"
-    u = "http://timesofindia.indiatimes.com/rssfeeds/-2128838597.cms?feedtype=sjson"
-    r = requests.get(u)
+    url = "http://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms?feedtype=json"
+    r = requests.get(url)
     data = r.json()
-    data = data['channel']
+    for i in data['channel']['item']:
+        des = i['description']
+        index = int(des.find('src=')) + 5
+        last = des.find('"', index)
+        img_src = des[index: last]
+        i['img'] = img_src
     return render(request, "app/feed.html", {'data': data})
+
+
+def feedname(request, name):
+    url = ""
+    if name == "sports":
+        url = "http://timesofindia.indiatimes.com/rssfeeds/4719148.cms?feedtype=json"
+    elif name == "india":
+        url = "http://timesofindia.indiatimes.com/rssfeeds/-2128936835.cms?feedtype=json"
+    elif name == "science":
+        url = "http://timesofindia.indiatimes.com/rssfeeds/-2128672765.cms?feedtype=json"
+    elif name == "environment":
+        url = "http://timesofindia.indiatimes.com/rssfeeds/2647163.cms?feedtype=json"
+    elif name == "tech":
+        url = "http://timesofindia.indiatimes.com/rssfeeds/5880659.cms?feedtype=json"
+    elif name == "entertainment":
+        url = "http://timesofindia.indiatimes.com/rssfeeds/1081479906.cms?feedtype=json"
+    req = requests.get(url)
+    data = req.json()
+    for i in data['channel']['item']:
+        des = i['description']
+        index = int(des.find('src=')) + 5
+        last = des.find('"', index)
+        img_src = des[index: last]
+        i['img'] = img_src
+
+    return render(request, "app/feed.html", {'data': data}, {'title':name})
