@@ -8,6 +8,7 @@ class SignUpForm(UserCreationForm):
                 ("Sp", "Sports"),
                 ("Mo", "Movies"),
                 ("Tr", "Travels"),
+                ("Po", "Politics"),
                 )
     choices = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple,
                                              choices=OPTIONS)
