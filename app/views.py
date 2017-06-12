@@ -42,21 +42,24 @@ def register(request):  # Register handler
 
 
 def feedname(request, name):  # News feed generator
-    if name in mapper:
-        url = static_url + mapper[name]
-        req = requests.get(url)
-        data = req.json()
-        for i in data['channel']['item']:
-            des = i['description']
-            index = int(des.find('src='))
-            if index is -1:
-                img_src = "http://placehold.it/900x300"
-            else:
-                index = index + 5
-                last = des.find('"', index)
-                img_src = des[index: last]
-            i['img'] = img_src
-        return render(request, "app/feed.html",
-                      {'data': data}, {'title': name})
+    if request.user.is_authenticated:
+        if name in mapper:
+            url = static_url + mapper[name]
+            req = requests.get(url)
+            data = req.json()
+            for i in data['channel']['item']:
+                des = i['description']
+                index = int(des.find('src='))
+                if index is -1:
+                    img_src = "http://placehold.it/900x300"
+                else:
+                    index = index + 5
+                    last = des.find('"', index)
+                    img_src = des[index: last]
+                i['img'] = img_src
+            return render(request, "app/feed.html",
+                          {'data': data}, {'title': name})
+        else:
+            return render(request, "app/404.html")
     else:
-        return render(request, "app/404.html")
+        return redirect("/app/login")

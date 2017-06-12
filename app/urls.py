@@ -17,6 +17,6 @@ urlpatterns = [
     url(r'^logout/$', auth_views.logout,
         {'template_name': 'app/index.html'},
         name='logout'),
-    # /app/feed/<category> 
+    # /app/feed/<category>
     url(r'^feed/(?P<name>[a-z]+)/$', views.feedname, name='feed')
 ]
