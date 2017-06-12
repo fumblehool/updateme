@@ -6,6 +6,7 @@ from django import forms
 
 
 class User(models.Model):
+    Category = forms.CharField(max_length=2001)
     email = models.EmailField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput)
 

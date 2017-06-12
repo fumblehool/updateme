@@ -32,11 +32,12 @@ def register(request):  # Register handler
             # email = form.cleaned_data.get('email')
             form.cleaned_data.get('choices')
             raw_password = form.cleaned_data.get('password1')
-            # category = form.cleaned_data.get('category')
+            category = form.cleaned_data.get('category')
             form.save()
             user = authenticate(username=username, password=raw_password)
             auth_login(request, user)
-            return redirect('/app/login')
+            # session['category'] = category
+            return redirect('/app/feed/' + category)
     else:
         form = SignUpForm()
     return render(request, 'app/register.html', {'form': form})

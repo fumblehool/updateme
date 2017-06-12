@@ -3,15 +3,17 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<div class="contact-form" style="margin-right: 40%; margin-left: 40%;">
-<h2>Sign up</h2>
+<div class="contact-form" style="width:50%;margin:auto">
+<div class="col-md-6 text-right"><h2>Sign up</h2></div>
   <form method="post" class="form-horizontal col-md-8" role="form">
     {% csrf_token %}
     {% for field in form %}
     <div class="form-group">
+      <div class="col-md-4">
       <label for="name">
         {{ field.label_tag }}</label>
-        <div class="col-md-10">
+      </div>
+        <div class="col-md-8">
         {{ field }}
         </div>
 
@@ -25,9 +27,7 @@
     </div>
     {% endfor %}
     
-<div class="col-md-12 text-right">
-
-                
+<div class="col-md-8 text-right">
     <button type="submit">Sign up</button></div> 
   </form>
 </div>
